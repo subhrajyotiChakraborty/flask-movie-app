@@ -8,6 +8,11 @@ verify_ssl = true
 [packages]
 flask = "*"
 requests = "*"
+flask-sqlalchemy = "*"
+flask-restful = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
+marshmallow = "*"
 flask-cors = "*"
 python-dotenv = "*"
 gunicorn = "*"
