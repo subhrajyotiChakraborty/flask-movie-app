@@ -33,7 +33,7 @@ class GetMovies(Resource):
     def get(cls, movieName: str):
         page_count = request.args.get("page") if request.args.get("page") else "1"
 
-        if int(int(page_count)) < 1:
+        if int(page_count) < 1:
             page_count = "1"
 
         try:

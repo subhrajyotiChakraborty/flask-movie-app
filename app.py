@@ -13,21 +13,21 @@ app = Flask(__name__)
 CORS(app)
 
 # for dev
-load_dotenv(".env", verbose=True)
-app.config.from_object("default_config")
-app.config.from_envvar("APPLICATION_SETTINGS")
+# load_dotenv(".env", verbose=True)
+# app.config.from_object("default_config")
+# app.config.from_envvar("APPLICATION_SETTINGS")
 
 api = Api(app)
 
 # for production
-# app.config.from_object("config")
-# app.config.from_envvar("APPLICATION_SETTINGS")
+app.config.from_object("config")
+app.config.from_envvar("APPLICATION_SETTINGS")
 
 
 # for dev
-@app.before_first_request
-def create_tables():
-    db.create_all()
+# @app.before_first_request
+# def create_tables():
+#     db.create_all()
 
 
 @app.errorhandler(ValidationError)
