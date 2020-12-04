@@ -31,8 +31,29 @@ class Movie(Resource):
 class GetMovies(Resource):
     @classmethod
     def get(cls, movieName: str):
-        r = requests.get(f"http://www.omdbapi.com/?apikey={os.environ.get('API_KEY')}&s=/{movieName}")
-        return r.json()
+        page_count = request.args.get("page") if request.args.get("page") else "1"
+
+        if int(int(page_count)) < 1:
+            page_count = "1"
+
+        try:
+            r = requests.get(f"http://www.omdbapi.com/?apikey={os.environ.get('API_KEY')}&s=/{movieName}&page={page_count}")
+        except:
+            return {"message": "Error occurred while fetching movies data"}, 500
+
+        return r.json(), 200
+
+
+class GetMovieDetails(Resource):
+    @classmethod
+    def get(cls, imdbID: str):
+        try:
+            print(f"http://www.omdbapi.com/?i={imdbID}&apikey={os.environ.get('API_KEY')}")
+            response = requests.get(f"http://www.omdbapi.com/?i={imdbID}&apikey={os.environ.get('API_KEY')}")
+        except:
+            return {"message": "Error occurred while fetching movie details"}, 500
+
+        return response.json(), 200
 
 
 class DeleteMovie(Resource):
